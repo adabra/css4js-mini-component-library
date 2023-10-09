@@ -23,7 +23,7 @@ const STYLES = {
   }
 }
 
-const ProgressBar = ({ value, size, width}) => {
+const ProgressBar = ({ value, size }) => {
   const style = STYLES[size];
 
   return (
@@ -38,12 +38,14 @@ const ProgressBar = ({ value, size, width}) => {
         "--padding": style.padding + "px",
         "--border-radius": style.borderRadius + "px"
       }}>
-      <Bar
-        value={value}
-        style={{
-          '--width': value + '%',
-        }}></Bar>
-        <VisuallyHidden>{value}%</VisuallyHidden>
+      <Trimmer>
+        <Bar
+          value={value}
+          style={{
+            '--width': value + '%',
+          }}></Bar>
+      </Trimmer>
+      <VisuallyHidden>{value}%</VisuallyHidden>
     </Wrapper>
   )
 };
@@ -57,16 +59,16 @@ const Wrapper = styled.div`
   box-shadow: 0px 2px 4px 0px ${COLORS.transparentGray35} inset;
 `;
 
+const Trimmer = styled.div`
+  overflow: hidden;
+  border-radius: 4px;
+  height: 100%;
+`;
+
 const Bar = styled.div`
   background-color: ${COLORS.primary};
   height: 100%;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-top-right-radius: ${ p => calculateRightBorderRadius(p.value)} ;
-  border-bottom-right-radius: ${ p =>  calculateRightBorderRadius(p.value)} ;
   width: var(--width);
 `;
-
-const calculateRightBorderRadius = (progressValue) => ((progressValue - 98) * 2) + "px";
 
 export default ProgressBar;
