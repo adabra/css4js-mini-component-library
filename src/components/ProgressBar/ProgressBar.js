@@ -5,12 +5,26 @@ import styled from 'styled-components';
 import { COLORS } from '../../constants';
 import VisuallyHidden from '../VisuallyHidden';
 
-const ProgressBar = ({ value, size, width}) => {
-  const HEIGHTS = {
-    small: 8,
-    medium: 12,
-    large: 24
+const STYLES = {
+  small: {
+    height: 8,
+    padding: 0,
+    borderRadius: 4
+  },
+  medium: {
+    height: 12,
+    padding: 0,
+    borderRadius: 4
+  },
+  large: {
+    height: 24,
+    padding: 4,
+    borderRadius: 8
   }
+}
+
+const ProgressBar = ({ value, size, width}) => {
+  const style = STYLES[size];
 
   return (
     <Wrapper
@@ -20,8 +34,9 @@ const ProgressBar = ({ value, size, width}) => {
       aria-valuemax="100"
       size={size}
       style={{
-        "--height": HEIGHTS[size] + "px",
-        "--width": width ? width : "100%",
+        "--height": style.height + "px",
+        "--padding": style.padding + "px",
+        "--border-radius": style.borderRadius + "px"
       }}>
       <Bar
         value={value}
@@ -36,8 +51,8 @@ const ProgressBar = ({ value, size, width}) => {
 const Wrapper = styled.div`
   width: var(--width);
   height: var(--height);
-  padding: ${p => p.size === "large" ? "4px" : ""};
-  border-radius: ${p => p.size === "large" ? "8px" : "4px"};
+  padding: var(--padding);
+  border-radius: var(--border-radius);
   background: ${COLORS.transparentGray15};
   box-shadow: 0px 2px 4px 0px ${COLORS.transparentGray35} inset;
 `;
