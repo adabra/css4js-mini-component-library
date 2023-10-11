@@ -11,7 +11,7 @@ const SIZES = {
     underlineThickness: 1,
     fontSize: (14 / 16),
     iconSize: 16,
-    paddingLeft: 16 + 12,
+    paddingLeft: 16 + 8,
     lineMargin: 4,
   },
   large: {
